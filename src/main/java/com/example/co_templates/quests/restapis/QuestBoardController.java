@@ -16,6 +16,7 @@ public class QuestBoardController {
     QuestBoardService QuestBoardService;
 
 
+    //localhost:8080/q/r/board/List
     @GetMapping({"/q/r/board/List/{pageNumber}", "/q/r/board/List"})
     public ResponseEntity<Object> callBoardList(@PathVariable(required = false) String pageNumber,
         HashMap<String,Object> dataMap) {
@@ -23,18 +24,40 @@ public class QuestBoardController {
         return ResponseEntity.ok().body(list);
     }
 
+    //postman query
+    //localhost:8080/q/r/board/Insert
+    // {
+    //     "TITLE" : "test_title",
+    //     "CONTENTS" : "test_contesnts",
+    //     "WRITER_ID" : "cocolang_id",
+    //     "PARENT_BOARDS" : ""
+    // }
     @GetMapping("/q/r/board/Insert")
     public ResponseEntity<Object> callBoardInsert(@RequestBody HashMap<String,Object> dataMap) {
         QuestBoardService.insert(dataMap);
         return ResponseEntity.ok().body(dataMap);
     }
 
+
+    //postman query
+    // localhost:8080/q/r/board/Update
+    // {
+    //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
+    //     "WRITER_ID" : "rugkfl"  
+    // }
     @GetMapping("/q/r/board/Update")
     public ResponseEntity<Object> callBoardUpdate(@RequestBody HashMap<String,Object> dataMap) {
         QuestBoardService.update(dataMap);
         return ResponseEntity.ok().body(dataMap);
     }
 
+
+    //postman query
+    //localhost:8080/q/r/board/Delete
+    // {
+    //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
+    //     "WRITER_ID" : "rugkfl"  
+    // }
     @GetMapping("/q/r/board/Delete")
     public ResponseEntity<Object> callBoardDelete(@RequestBody HashMap<String,Object> dataMap) {
         QuestBoardService.delete(dataMap);
