@@ -41,14 +41,13 @@ public class QuestVisitorService {
         Object insert = shareDao.insert(sqlMapId, dataMap);
     }
 
-    public void update(HashMap<String,Object> dataMap){
+    public Object update(HashMap<String,Object> dataMap){
         String sqlMapId = "Visitor.update";
         String pkUnique = commons.getUniqueSequence();
         String fkUnique = commons.getUniqueSequence();
-        dataMap.put("PK_VISITORS",pkUnique);
-        dataMap.put("WRITER_ID",fkUnique);
 
         Object update = shareDao.update(sqlMapId, dataMap);
+        return update;
     }
 
     public void delete(HashMap<String,Object> dataMap){

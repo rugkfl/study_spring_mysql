@@ -16,9 +16,9 @@
 	<!-- 입력 -->
 	<insert id="insert" parameterType="Map">
 	INSERT INTO `BOARDS` 
-	(`PK_BOARDS`, `TITLE`, `CONTENTS`, `WRITER_ID`, `PARENT_BOARDS`) 
+	(`PK_BOARDS`, `TITLE`, `CONTENTS`, `WRITER_ID`, `CREATE_DATE`, `PARENT_BOARDS`) 
 	VALUES
-	(#{PK_BOARDS}, #{TITLE}, #{CONTENTS}, #{WRITER_ID}, #{PARENT_BOARDS});
+	(#{PK_BOARDS}, #{TITLE}, #{CONTENTS}, #{WRITER_ID}, #{CREATE_DATE}, #{PARENT_BOARDS});
     </insert>
 
 	<!-- 수정 -->

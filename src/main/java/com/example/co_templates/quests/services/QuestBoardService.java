@@ -27,7 +27,7 @@ public class QuestBoardService {
         return list;
     }
 
-    public void insert(HashMap<String,Object> dataMap){
+    public Object insert(HashMap<String,Object> dataMap){
         // xml 파일에서 특정 id로 지정해서 쿼리문 호출
         String sqlMapId = "Board.insert";
         // 고유번호 호출후 변수에 대입
@@ -40,32 +40,48 @@ public class QuestBoardService {
 
         // 컬럼 갯수 만큼 대입
         dataMap.put("PK_BOARDS", pkUnique);
-        dataMap.put("TITLE", "test_title");
-        dataMap.put("CONTENTS", "test_contesnts");
-        dataMap.put("WRITER_ID", "cocolang_id");
         dataMap.put("CREATE_DATE", currentTimestamp);
-        dataMap.put("PARENT_BOARDS", "");
+
+        //postman query
+        // {
+        //     "TITLE" : "test_title",
+        //     "CONTENTS" : "test_contesnts",
+        //     "WRITER_ID" : "cocolang_id",
+        //     "PARENT_BOARDS" : ""
+        // }
+
 
         Object insert = shareDao.insert(sqlMapId, dataMap);
+        return insert;
     }
 
-    public void update(HashMap<String,Object> dataMap){
+    public Object update(HashMap<String,Object> dataMap){
         String sqlMapId = "Board.update";
-        String pkUnique = commons.getUniqueSequence();
-        String fkUnique = commons.getUniqueSequence();
-        dataMap.put("PK_BOARDS",pkUnique);
-        dataMap.put("WRITER_ID",fkUnique);
+
+        //postman query
+        // {
+        //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
+        //     "WRITER_ID" : "rugkfl"  
+        // }
+
        
 
         Object update = shareDao.update(sqlMapId, dataMap);
+
+        return update;
     }
 
-    public void delete(HashMap<String,Object> dataMap){
+    public Object delete(HashMap<String,Object> dataMap){
         String sqlMapId = "Board.delete";
-        String pkUnique = commons.getUniqueSequence();
-        dataMap.put("PK_BOARDS",pkUnique);
         Object delete = shareDao.delete(sqlMapId, dataMap);
 
+        //postman query
+        // {
+        //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
+        //     "WRITER_ID" : "rugkfl"  
+        // }
+        
+        return delete;
     }
     
 }

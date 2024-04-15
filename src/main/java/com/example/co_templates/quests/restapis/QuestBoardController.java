@@ -18,7 +18,7 @@ public class QuestBoardController {
 
     @GetMapping({"/q/r/board/List/{pageNumber}", "/q/r/board/List"})
     public ResponseEntity<Object> callBoardList(@PathVariable(required = false) String pageNumber,
-        @RequestBody HashMap<String,Object> dataMap) {
+        HashMap<String,Object> dataMap) {
         Object list = QuestBoardService.list(dataMap);
         return ResponseEntity.ok().body(list);
     }
