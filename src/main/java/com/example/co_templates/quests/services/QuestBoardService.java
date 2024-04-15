@@ -24,6 +24,9 @@ public class QuestBoardService {
     public Object list(HashMap<String,Object> dataMap){
         String sqlMapId = "Board.selectBysearch";
         Object list = shareDao.getList(sqlMapId, dataMap);
+
+        //localhost:8080/q/r/board/List
+
         return list;
     }
 
@@ -43,6 +46,7 @@ public class QuestBoardService {
         dataMap.put("CREATE_DATE", currentTimestamp);
 
         //postman query
+        //localhost:8080/q/r/board/Insert
         // {
         //     "TITLE" : "test_title",
         //     "CONTENTS" : "test_contesnts",
@@ -59,6 +63,7 @@ public class QuestBoardService {
         String sqlMapId = "Board.update";
 
         //postman query
+        // localhost:8080/q/r/board/Update
         // {
         //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
         //     "WRITER_ID" : "rugkfl"  
@@ -76,6 +81,7 @@ public class QuestBoardService {
         Object delete = shareDao.delete(sqlMapId, dataMap);
 
         //postman query
+        //localhost:8080/q/r/board/Delete
         // {
         //     "PK_BOARDS" : "fa73ed31-001e-48a5-99e8-6fdd4fc4c871",
         //     "WRITER_ID" : "rugkfl"  
