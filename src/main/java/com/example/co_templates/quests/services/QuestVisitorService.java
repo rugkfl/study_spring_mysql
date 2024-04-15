@@ -21,40 +21,47 @@ public class QuestVisitorService {
     public Object list(HashMap<String,Object> dataMap){
         String sqlMapId = "Visitor.selectBysearch";
         Object list = shareDao.getList(sqlMapId, dataMap);
+
+        //localhost:8080/q/r/visitor/List
+    
         return list;
     }
 
-    public void insert(HashMap<String,Object> dataMap){
+    public Object insert(HashMap<String,Object> dataMap){
         // xml 파일에서 특정 id로 지정해서 쿼리문 호출
         String sqlMapId = "Visitor.insert";
         // 고유번호 호출후 변수에 대입
         String pkUnique = commons.getUniqueSequence();
         String fkUnique = commons.getUniqueSequence();
 
-
-
         // 컬럼 갯수 만큼 대입
         dataMap.put("PK_VISITORS", pkUnique);
-        dataMap.put("WRITER_ID", "cocolang_id");
         dataMap.put("PK_BOARDS", fkUnique);
 
+        //postman query
+        //localhost:8080/q/r/visitor/Insert
+        // {
+        //     "WRITER_ID" : "rugkfl_1234"  
+        // }
+
         Object insert = shareDao.insert(sqlMapId, dataMap);
+
+        return insert;
     }
 
-    public Object update(HashMap<String,Object> dataMap){
-        String sqlMapId = "Visitor.update";
-        String pkUnique = commons.getUniqueSequence();
-        String fkUnique = commons.getUniqueSequence();
 
-        Object update = shareDao.update(sqlMapId, dataMap);
-        return update;
-    }
 
-    public void delete(HashMap<String,Object> dataMap){
+    public Object delete(HashMap<String,Object> dataMap){
         String sqlMapId = "Visitor.delete";
-        String pkUnique = commons.getUniqueSequence();
-        dataMap.put("PK_VISITORS",pkUnique);
         Object delete = shareDao.delete(sqlMapId, dataMap);
+
+        //postman query
+        // localhost:8080/q/r/visitor/Delete
+        // {
+        //     "PK_VISITORS" : "26127de2-aeba-4dc8-ac49-60a0970e611f"  
+        // }
+
+        return delete;
 
     }
     

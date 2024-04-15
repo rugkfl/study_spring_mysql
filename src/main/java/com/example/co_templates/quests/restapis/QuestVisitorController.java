@@ -19,7 +19,7 @@ public class QuestVisitorController {
 
     @GetMapping({"/q/r/visitor/List/{pageNumber}", "/q/r/visitor/List"})
     public ResponseEntity<Object> callVisitorList(@PathVariable(required = false) String pageNumber,
-        @RequestBody HashMap<String,Object> dataMap) {
+        HashMap<String,Object> dataMap) {
         Object list = QuestVisitorService.list(dataMap);
         return ResponseEntity.ok().body(list);
     }
@@ -30,11 +30,6 @@ public class QuestVisitorController {
         return ResponseEntity.ok().body(dataMap);
     }
 
-    @GetMapping("/q/r/visitor/Update")
-    public ResponseEntity<Object> callVisitorUpdate(@RequestBody HashMap<String,Object> dataMap) {
-        QuestVisitorService.update(dataMap);
-        return ResponseEntity.ok().body(dataMap);
-    }
 
     @GetMapping("/q/r/visitor/Delete")
     public ResponseEntity<Object> callVisitorDelete(@RequestBody HashMap<String,Object> dataMap) {
