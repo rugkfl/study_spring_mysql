@@ -22,8 +22,6 @@ public class QuestVisitorService {
         String sqlMapId = "Visitor.selectBysearch";
         Object list = shareDao.getList(sqlMapId, dataMap);
 
-        //localhost:8080/q/r/visitor/List
-    
         return list;
     }
 
@@ -38,12 +36,6 @@ public class QuestVisitorService {
         dataMap.put("PK_VISITORS", pkUnique);
         dataMap.put("PK_BOARDS", fkUnique);
 
-        //postman query
-        //localhost:8080/q/r/visitor/Insert
-        // {
-        //     "WRITER_ID" : "rugkfl_1234"  
-        // }
-
         Object insert = shareDao.insert(sqlMapId, dataMap);
 
         return insert;
@@ -54,12 +46,6 @@ public class QuestVisitorService {
     public Object delete(HashMap<String,Object> dataMap){
         String sqlMapId = "Visitor.delete";
         Object delete = shareDao.delete(sqlMapId, dataMap);
-
-        //postman query
-        // localhost:8080/q/r/visitor/Delete
-        // {
-        //     "PK_VISITORS" : "26127de2-aeba-4dc8-ac49-60a0970e611f"  
-        // }
 
         return delete;
 
