@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Visitor">
+	<select id="selectBysearch" parameterType="Map" resultType="Map">
+        SELECT * FROM VISITORS;
+	</select>
+
+	<!-- 상세 -->
+	<select id="selectByUID" parameterType="Map" resultType="Map">
+        SELECT * 
+		FROM VISITORS 
+		WHERE 1 = 1
+		AND PK_VISITORS = #{PK_VISITORS}; <!-- #{PK_VISITORS} -->
+	</select>
+
+	<!-- 입력 -->
+	<insert id="insert" parameterType="Map">
+	INSERT INTO `VISITORS` 
+	(`PK_VISITORS`, `WRITER_ID`, `PK_BOARDS`) 
+	VALUES
+	(#{PK_VISITORS}, #{WRITER_ID}, #{PK_BOARDS});
+    </insert>
+
+	<!-- 수정 -->
+	<update id="update" parameterType="Map">
+		update VISITORS
+		set WRITER_ID = #{WRITER_ID}
+		where 1 = 1
+		and PK_VISITORS = #{PK_VISITORS};
+    </update>
+
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="Map">
+		delete from VISITORS
+		where 1 = 1
+		and PK_VISITORS = #{PK_VISITORS};
+    </delete>
+</mapper>
