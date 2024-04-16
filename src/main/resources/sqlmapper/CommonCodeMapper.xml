@@ -13,6 +13,25 @@
 		<!-- query문 안에 들어가야 하는 것은 ${}-->
 	</select>
 
+	<!-- total count -->
+	<select id="selectTotal" parameterType="Map" resultType="int">
+        select count(*) as cnt
+        from COMMON_CODE
+        ;
+	</select>
+
+	<!-- 검색 with pagination -->
+	<select id="selectSearchWithPagination" parameterType="Map" resultType="Map">
+        SELECT *
+        FROM COMMON_CODE
+        where 1 = 1
+       	<if test="search != null">
+        and ${searchType} regexp #{search}
+    	</if> 
+        limit #{pageBegin}, #{pageScale}
+        ;
+	</select>
+
 	<!-- 상세 -->
 	<select id="selectByUID" parameterType="Map" resultType="Map">
         SELECT *

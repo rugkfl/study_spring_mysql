@@ -37,5 +37,21 @@ public class CommonCodeController {
         return modelAndView;
     }
 
+    // paginations
+    @GetMapping("/commonCode/list_pagination")
+    public ModelAndView listpagination(ModelAndView modelAndView
+                        ,@RequestParam HashMap<String, Object> dataMap
+                        ,@RequestParam(name = "deleteIds", required = false ) ArrayList<String> deleteIds) {
+        Object result = commonCodeService.selectSearchWithPagination(dataMap);
+
+        String viewPath = "/WEB-INF/views/commoncode/list_pagination.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+
+        return modelAndView;
+    }
+
+
 }
 
