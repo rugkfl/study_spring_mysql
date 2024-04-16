@@ -9,8 +9,10 @@
 	<select id="selectByUID" parameterType="Map" resultType="Map">
         SELECT * 
 		FROM BOARDS 
-		WHERE 1 = 1
-		AND PK_BOARDS = #{PK_BOARDS}; <!-- #{PK_BOARDS} -->
+		WHERE 1 = 1 
+		AND TITLE REGEXP 'Global';
+		<!-- WHERE 
+		AND PK_BOARDS = #{PK_BOARDS}; #{PK_BOARDS} -->
 	</select>
 
 	<!-- 입력 -->

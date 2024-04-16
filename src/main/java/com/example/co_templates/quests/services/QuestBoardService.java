@@ -1,6 +1,7 @@
 package com.example.co_templates.quests.services;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,11 @@ public class QuestBoardService {
     @Autowired
     Commons commons;
 
-    public Object list(HashMap<String,Object> dataMap){
+    public List<HashMap<String, Object>> list(HashMap<String,Object> dataMap){
         String sqlMapId = "Board.selectBysearch";
-        Object list = shareDao.getList(sqlMapId, dataMap);
+        Object result = shareDao.getList(sqlMapId, dataMap);
 
+        List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) result;
         return list;
     }
 

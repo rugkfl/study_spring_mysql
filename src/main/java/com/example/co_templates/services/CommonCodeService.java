@@ -17,13 +17,17 @@ public class CommonCodeService {
     @Autowired
     Commons commons;
 
-    public void callDao(HashMap<String, Object> dataMap){
+    public Object selectMany(HashMap<String, Object> dataMap) {
         // 여러개 가져오기
         String sqlMapId = "CommonCode.selectBysearch";
         Object list = shareDao.getList(sqlMapId, dataMap);
+        return list;
+    }
+
+    public void callDao(HashMap<String, Object> dataMap){
 
         // 한개만 가져오기
-        sqlMapId = "CommonCode.selectByUID";
+        String sqlMapId = "CommonCode.selectByUID";
         dataMap.put("PK_UNIQUE", "CC002");
         Object one = shareDao.getOne(sqlMapId, dataMap);
 
@@ -43,6 +47,7 @@ public class CommonCodeService {
         sqlMapId = "CommonCode.delete";
         dataMap.put("PK_UNIQUE", pk_unique);
         Object delete = shareDao.delete(sqlMapId, dataMap);
+        
         return;
     }
 
