@@ -42,15 +42,41 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h2>Search</h2>
-                        <% HashMap dataMap=(HashMap) request.getAttribute("dataMap"); String search=(String)
-                            dataMap.getOrDefault("search", "" ); %>
+                        <% HashMap dataMap=(HashMap) request.getAttribute("dataMap"); 
+                        String search=(String) dataMap.getOrDefault("search", "" ); 
+                        String searchType = (String) dataMap.getOrDefault("searchType", "");
+                        %>
                             <div class="input-group mb-3">
                                 <!-- 셀렉트 박스 추가 -->
                                 <select class="form-select" id="searchType" name="searchType">
                                     <option selected>Choose...</option>
-                                    <option value="TITLE">TITLE</option>
+                                    <% 
+                                        if(searchType.equals("TITLE")) {
+                                    %>
+                                    <option selected value="TITLE">TITLE</option>
                                     <option value="CONTENTS">CONTENTS</option>
                                     <option value="WRITER_ID">WRITER_ID</option>
+                                    <%
+                                    } else if (searchType.equals("CONTENTS")) {
+                                    %>
+                                    <option value="TITLE">TITLE</option>
+                                    <option selected value="CONTENTS">CONTENTS</option>
+                                    <option value="WRITER_ID">WRITER_ID</option>
+                                    <% 
+                                    } else if (searchType.equals("WRITER_ID")) {
+                                    %> 
+                                    <option value="TITLE">TITLE</option>
+                                    <option value="CONTENTS">CONTENTS</option>
+                                    <option selected value="WRITER_ID">WRITER_ID</option>
+                                    <%
+                                    } else {
+                                    %>
+                                    <option value="TITLE">TITLE</option>
+                                    <option value="CONTENTS">CONTENTS</option>
+                                    <option value="WRITER_ID">WRITER_ID</option> 
+                                    <%
+                                    }
+                                    %>  
                                 </select>
                                 <input type="text" class="form-control" name="search" value="<%= search %>"
                                     placeholder="Search..." id="keydownEnter">
@@ -109,7 +135,7 @@
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
                             <button class="page-link" type="submit" name="currentPage"
-                                value="Previous">Previous</button>
+                                value="<%= paginations.getPreviousPage() %>">Previous</button>
                         </li>
                         <% for(int i=paginations.getBlockStart(); i <=paginations.getBlockEnd(); i++){ %>
                             <li class="page-item">
@@ -120,7 +146,7 @@
                             <% } %>
                                 <li class="page-item">
                                     <button class="page-link" type="submit" name="currentPage"
-                                        value="Next">Next</button>
+                                        value="<%= paginations.getNextPage() %>">Next</button>
                                 </li>
                     </ul>
                 </nav>

@@ -27,7 +27,7 @@ public class QuestBoardRestController {
                             @RequestParam HashMap<String,Object> dataMap) {
           
         Object list = QuestBoardService.list(dataMap); //호출하여 실제 데이터를 가져옴
-        String viewPath = "/WEB-INF/views/boards/list.jsp";
+        String viewPath = "/WEB-INF/views/boards/list_pagination.jsp";
         modelAndView.setViewName(viewPath);
         modelAndView.addObject("list", list) ; 
         modelAndView.addObject("dataMap", dataMap);
@@ -83,11 +83,11 @@ public class QuestBoardRestController {
         dataMap.put("deleteIds", deleteIds);
         Object result = QuestBoardService.selectSearchWithPaginationAndDeletes(dataMap);
 
-        String viewPath = "/WEB-INF/views/boards/list.jsp";
+        String viewPath = "/WEB-INF/views/boards/list_pagination.jsp";
         modelAndView.setViewName(viewPath);
         modelAndView.addObject("result", result);
         modelAndView.addObject("dataMap", dataMap);
-        
+
         return modelAndView;
     }
     
