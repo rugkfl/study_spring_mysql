@@ -2,17 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 	<select id="selectBysearch" parameterType="Map" resultType="Map">
-        SELECT * FROM BOARDS;
+        SELECT * 
+		FROM BOARDS;
+		where 1 = 1
+		<if test="search != '' and search != null">
+		and ${searchType} regexp #{search}
+		</if>
 	</select>
+
+	<!-- total count -->
+	<select id="selectTotal" parameterType="Map" resultType="int">
+	SELECT COUNT(*) AS cnt
+	FROM BOARDS;
+	</select>
+
+	<!-- search with pagination -->
+	<select id="selectSearchWithPagination" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM BOARDS
+		where 1 = 1
+		<if test="search != null and search != ''">
+		and ${searchType} regexp #{search}
+		</if>
+		limit #{pageBegin}, #{pageScale} ;
+	</select>
+
 
 	<!-- 상세 -->
 	<select id="selectByUID" parameterType="Map" resultType="Map">
         SELECT * 
 		FROM BOARDS 
-		WHERE 1 = 1 
-		AND TITLE REGEXP 'Global';
-		<!-- WHERE 
-		AND PK_BOARDS = #{PK_BOARDS}; #{PK_BOARDS} -->
+		where 1 = 1 
+		AND PK_BOARDS = #{PK_BOARDS}; #{PK_BOARDS} 
 	</select>
 
 	<!-- 입력 -->
@@ -37,4 +58,16 @@
 		where 1 = 1
 		and PK_BOARDS = #{PK_BOARDS};
     </delete>
+
+	<!-- 여러개 삭제 -->
+	<delete id="deletewithin" parameterType="Map">
+		DELETE FROM BOARDS
+		WHERE
+		<foreach item="pk_item" index="index" collection="deleteIds"
+			open="PK_BOARDS in (" separator="," close=")" nullable="true">
+			#{pk_item} 
+		</foreach> 
+		;
+	</delete>
+
 </mapper>

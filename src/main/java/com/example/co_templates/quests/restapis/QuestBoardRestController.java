@@ -74,5 +74,22 @@ public class QuestBoardRestController {
         QuestBoardService.delete(dataMap);
         return ResponseEntity.ok().body(dataMap);
     }
+
+    @GetMapping("/q/r/board/list_pagination")
+    public ModelAndView listPagination(ModelAndView modelAndView,
+                    @RequestParam HashMap<String,Object> dataMap,
+                    @RequestParam(name = "deleteIds", required = false)
+                    ArrayList<String> deleteIds) {
+        dataMap.put("deleteIds", deleteIds);
+        Object result = QuestBoardService.selectSearchWithPaginationAndDeletes(dataMap);
+
+        String viewPath = "/WEB-INF/views/boards/list.jsp";
+        modelAndView.setViewName(viewPath);
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("dataMap", dataMap);
+        
+        return modelAndView;
+    }
+    
     
 }
