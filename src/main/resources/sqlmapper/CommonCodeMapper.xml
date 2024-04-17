@@ -2,65 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CommonCode">
 	<select id="selectBysearch" parameterType="Map" resultType="Map">
-		SELECT *
+		SELECT * 
 		FROM COMMON_CODE
-		WHERE 1 = 1
-		<if test="search != null">
-        and ${searchType} regexp #{search}
-    	</if> ;
-		<!-- DATABASE 이름은 안넣어주고 TABLE이름만 넣어주는 것이 좋음 -->
-		<!-- ?로 변화되어야 하는 것은 #{} -->
-		<!-- query문 안에 들어가야 하는 것은 ${}-->
+		where 1 = 1
+        <!-- and YEAR <![CDATA[  >   ]]> #{search} -->
+		<if test="search != '' and search != null">
+		and ${searchType} regexp #{search}
+		</if>
+		;
 	</select>
 
-	<!-- total count -->
+<!-- total count -->
 	<select id="selectTotal" parameterType="Map" resultType="int">
         select count(*) as cnt
         from COMMON_CODE
         ;
 	</select>
 
-	<!-- 검색 with pagination -->
+<!-- 검색 with pagination -->
 	<select id="selectSearchWithPagination" parameterType="Map" resultType="Map">
         SELECT *
         FROM COMMON_CODE
         where 1 = 1
-       	<if test="search != null">
-        and ${searchType} regexp #{search}
-    	</if> 
+		<if test="search != null and search != ''">
+		and ${searchType} regexp #{search}
+		</if>
         limit #{pageBegin}, #{pageScale}
         ;
 	</select>
 
 	<!-- 상세 -->
 	<select id="selectByUID" parameterType="Map" resultType="Map">
-        SELECT *
+		SELECT * 
 		FROM COMMON_CODE
-		WHERE 1 = 1
-		AND PK_UNIQUE = #{PK_UNIQUE}; <!-- => get -->
+		WHERE 1 = 1 
+		AND PK_UNIQUE = #{PK_UNIQUE};
 	</select>
 
-		<!-- 입력 -->
+	<!-- 입력 -->
 	<insert id="insert" parameterType="Map">
-		INSERT INTO `COMMON_CODE`
+		INSERT INTO `COMMON_CODE` 
 		(`PK_UNIQUE`, `CODE_NAME`, `DESCRIPTION`, `PARENT_UNIQUE`) 
 		VALUES
-		(#{PK_UNIQUE}, #{CODE_NAME}, #{DESCRIPTION}, #{PARENT_UNIQUE}) ;
+		(#{PK_UNIQUE}, #{CODE_NAME}, #{DESCRIPTION}, #{PARENT_UNIQUE}) ;	
     </insert>
 
-	<!-- 수정 -->
+    <!-- 수정 -->
 	<update id="update" parameterType="Map">
-		UPDATE COMMON_CODE
+		update COMMON_CODE
 		SET CODE_NAME = #{CODE_NAME}
 		WHERE 1 = 1
 		AND PK_UNIQUE = #{PK_UNIQUE};
-    </update>
+    </update>	
 
-	<!-- 삭제 -->
+    <!-- 삭제 -->
 	<delete id="delete" parameterType="Map">
 		DELETE FROM COMMON_CODE
 		WHERE 1 = 1
 		AND PK_UNIQUE = #{PK_UNIQUE};
-    </delete>
+    </delete>	
+
+    <!-- 여러개 삭제 -->
+	<delete id="deletewithin" parameterType="Map">
+		DELETE FROM COMMON_CODE
+		WHERE  
+		<foreach item="pk_item" index="index" collection="deleteIds"
+			open="PK_UNIQUE in (" separator="," close=")" nullable="true">
+			#{pk_item}
+		</foreach>
+		;  
+    </delete>	
 
 </mapper>
